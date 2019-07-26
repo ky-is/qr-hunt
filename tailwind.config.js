@@ -13,6 +13,9 @@ module.exports = {
 	corePlugins: {
 		container: false,
 	},
+	variants: {
+		display: ['responsive', 'hover', 'group-hover'],
+	},
 	plugins: [
 		require('@ky-is/tailwindcss-plugin-width-height')({ variants: ['responsive'] }),
 	],
