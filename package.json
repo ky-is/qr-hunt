@@ -1,0 +1,60 @@
+{
+	"name": "qr-scavenger",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"serve": "vue-cli-service serve --open",
+		"build": "vue-cli-service build --modern"
+	},
+	"dependencies": {
+		"@fullhuman/postcss-purgecss": "^1.2.0",
+		"@ky-is/tailwindcss-plugin-width-height": "^1.0.0",
+		"core-js": "^3.1.4",
+		"postcss-preset-env": "^6.7.0",
+		"tailwindcss": "^1.0.5",
+		"vue": "^2.6.10",
+		"vue-router": "^3.0.7"
+	},
+	"devDependencies": {
+		"@ky-is/eslint-config": "^1.7.0",
+		"@ky-is/vue-cli-plugin-tabs": "^1.1.0",
+		"@ky-is/vue-cli-plugin-tailwind": "^2.0.0",
+		"@vue/cli-plugin-babel": "^3.9.2",
+		"@vue/cli-plugin-eslint": "^3.9.2",
+		"@vue/cli-plugin-typescript": "^3.9.0",
+		"@vue/cli-service": "^3.9.3",
+		"@vue/eslint-config-typescript": "^4.0.0",
+		"babel-eslint": "^10.0.2",
+		"eslint": "^6.1.0",
+		"eslint-plugin-vue": "^5.2.3",
+		"typescript": "^3.5.3",
+		"vue-template-compiler": "^2.6.10"
+	},
+	"babel": {
+		"presets": [
+			[
+				"@vue/app",
+				{
+					"jsx": false,
+					"loose": true,
+					"modules": "commonjs"
+				}
+			]
+		]
+	},
+	"eslintConfig": {
+		"extends": "@ky-is/eslint-config/vue-typescript",
+		"rules": {}
+	},
+	"browserslist": {
+		"production": [
+			"> 1%",
+			"last 2 versions",
+			"not ie <= 8"
+		],
+		"development": [
+			"last 1 version",
+			"not dead"
+		]
+	}
+}
