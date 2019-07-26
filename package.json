@@ -13,6 +13,7 @@
 		"contentful": "^7.8.2",
 		"core-js": "^2",
 		"postcss-preset-env": "^6.7.0",
+		"qrcode": "^1.4.1",
 		"tailwindcss": "^1.0.5",
 		"vue": "^2.6.10",
 		"vue-router": "^3.0.7"
@@ -21,6 +22,7 @@
 		"@ky-is/eslint-config": "^1.7.0",
 		"@ky-is/vue-cli-plugin-tabs": "^1.1.0",
 		"@ky-is/vue-cli-plugin-tailwind": "^2.0.0",
+		"@types/qrcode": "^1.3.3",
 		"@vue/cli-plugin-babel": "^3.9.2",
 		"@vue/cli-plugin-eslint": "^3.9.2",
 		"@vue/cli-plugin-typescript": "^3.9.0",
