@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="flex">
 	<Entry v-for="{ fields } in qrEntries" :key="fields.name" :fields="fields" />
 </div>
 </template>

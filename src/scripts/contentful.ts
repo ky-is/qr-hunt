@@ -7,6 +7,6 @@ export interface QRItem {
 }
 
 export default createClient({
-	space: process.env.VUE_APP_CONTENTFUL_SPACE_ID,
-	accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN,
+	space: process.env.VUE_APP_CONTENTFUL_SPACE_ID as string,
+	accessToken: process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN as string,
 })
