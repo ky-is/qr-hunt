@@ -1,7 +1,8 @@
 {
 	"name": "qr-scavenger",
 	"version": "0.1.0",
-	"private": true,
+	"description": "Create your own QR code scavenger hunt!",
+	"license": "ISC",
 	"scripts": {
 		"serve": "vue-cli-service serve --open",
 		"build": "vue-cli-service build --modern"
