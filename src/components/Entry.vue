@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import { QRItem } from '@/contentful'
+import { QRItem } from '@/scripts/contentful'
 
 export default Vue.extend({
 	props: {

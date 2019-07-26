@@ -8,7 +8,7 @@
 import contentful from 'contentful'
 import Vue from 'vue'
 
-import api, { QRItem } from '@/contentful'
+import api, { QRItem } from '@/scripts/contentful'
 
 import Entry from '@/components/Entry.vue'
 
