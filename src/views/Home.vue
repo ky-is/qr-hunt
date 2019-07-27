@@ -1,5 +1,5 @@
 <template>
-<div class="flex">
+<div class="flex flex-wrap">
 	<Entry v-for="{ fields, sys } in qrEntries" :id="sys.id" :key="fields.name" :fields="fields" />
 </div>
 </template>
@@ -29,3 +29,13 @@ export default Vue.extend({
 	},
 })
 </script>
+
+<style lang="postcss" scoped>
+.entry {
+	width: 33.333vmin;
+	height: 33.333vmin;
+	max-width: 256px;
+	max-height: 256px;
+}
+</style>
+

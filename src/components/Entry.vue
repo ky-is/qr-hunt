@@ -1,7 +1,7 @@
 <template>
 <div
 	:style="{ backgroundImage: `url(${fields.image.fields.file.url})` }"
-	class="wh-64 bg-contain group" :class="isUnlocked && 'border'"
+	class="entry bg-contain group" :class="isUnlocked && 'border'"
 >
 	<div :class="isUnlocked ? 'flex' : 'hidden group-hover:flex cursor-help'" class="wh-full p-2 text-center  flex-col justify-center" style="background-color: rgba(0,0,0,0.5)">
 		<template v-if="isUnlocked">
