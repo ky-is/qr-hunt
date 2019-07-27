@@ -22,8 +22,13 @@ export default {
 	},
 
 	getBool (key: string, defaultValue: boolean | null = null) {
-		const boolString = this.get(key)
-		return boolString !== null ? boolString === 'true' : defaultValue
+		const raw = this.get(key)
+		return raw !== null ? raw === 'true' : defaultValue
+	},
+
+	getInt (key: string, defaultValue: number | null = null) {
+		const raw = this.get(key)
+		return raw !== null ? parseInt(raw, 10) : defaultValue
 	},
 
 	set (key: string, value: any) {
