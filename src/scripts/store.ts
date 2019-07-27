@@ -8,4 +8,13 @@ const state = {
 
 export default {
 	state,
+
+	isUnlocked (id: string) {
+		return state.unlocked.includes(id)
+	},
+
+	setUnlocked (id: string) {
+		state.unlocked.push(id)
+		storage.setArray(KEY_UNLOCKED, state.unlocked)
+	},
 }

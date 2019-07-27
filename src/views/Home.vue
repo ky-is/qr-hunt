@@ -1,6 +1,6 @@
 <template>
 <div class="flex">
-	<Entry v-for="{ fields } in qrEntries" :key="fields.name" :fields="fields" />
+	<Entry v-for="{ fields, sys } in qrEntries" :id="sys.id" :key="fields.name" :fields="fields" />
 </div>
 </template>
 
