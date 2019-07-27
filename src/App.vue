@@ -2,8 +2,8 @@
 <div id="app">
 	<div id="nav" class="h-12">
 		<router-link to="/">
-			<img alt="QR Scavenger Logo" src="@/assets/images/logo.png" class="inline w-12">
-			<span class="font-bold text-lg">QR Scavenger</span>
+			<img alt="QR Hunt Logo" src="@/assets/images/logo.png" class="inline w-12">
+			<span class="font-bold text-lg">QR Hunt</span>
 		</router-link>
 	</div>
 	<router-view />
