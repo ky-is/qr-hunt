@@ -34,17 +34,18 @@ export default Vue.extend({
 	},
 
 	watch: {
-		url (url) {
-			this.render(url)
+		url () {
+			this.render()
 		},
 	},
 
 	mounted () {
-		this.render(this.id)
+		this.render()
 	},
 
 	methods: {
-		async render (url: string) {
+		async render () {
+			const url = this.url
 			if (!url) {
 				return
 			}
