@@ -2,12 +2,14 @@
 <div>
 	<button v-if="showTutorial" class="inset  mt-2 p-2 border rounded-full text-center" @click="onDismiss">
 		<h2 class="text-lg font-medium">Welcome to QR Hunt!</h2>
-		<p class="px-4 my-2">Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its location will be checked off. Complete all {{ totalCount }} to win a prize!</p>
+		<p class="px-4 my-2">Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete all {{ totalCount }} to win a prize!</p>
 		<button class="block w-24 h-8 mx-auto bg-blue-100 rounded-full">Dismiss</button>
 	</button>
-	<h2 class="inset  my-2">Unlocked {{ unlockCount }} / {{ totalCount }}!</h2>
-	<div class="flex flex-wrap">
-		<Entry v-for="{ fields, sys } in qrEntries" :id="sys.id" :key="fields.name" :fields="fields" />
+	<div>
+		<h2 class="inset  my-2">Unlocked <b>{{ unlockCount }}</b> of <b>{{ totalCount }}</b></h2>
+		<div class="flex flex-wrap">
+			<Entry v-for="{ fields, sys } in qrEntries" :id="sys.id" :key="fields.name" :fields="fields" />
+		</div>
 	</div>
 </div>
 </template>
@@ -40,6 +42,7 @@ export default Vue.extend({
 		unlockCount (): number {
 			return this.qrEntries.filter(({ sys }) => store.isUnlocked(sys.id)).length
 		},
+
 		totalCount (): number {
 			return this.qrEntries.length
 		},
@@ -66,4 +69,3 @@ export default Vue.extend({
 	max-height: 256px;
 }
 </style>
-

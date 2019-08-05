@@ -29,7 +29,7 @@ export default Vue.extend({
 	computed: {
 		url (): string | null {
 			const id = this.id
-			return id ? `https://presidioneighborhood.netlify.com/unlock/${id}` : null
+			return id ? `${window.location.protocol}//${window.location.hostname}/unlock/${id}` : null
 		},
 	},
 
