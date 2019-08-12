@@ -1,5 +1,6 @@
 module.exports = {
 	theme: {
+		colors: require('@ky-is/tailwind-color-palette')(process.env.VUE_APP_BRAND_COLOR, {grayscale: true, ui: true}),
 		extend: {
 			inset: {
 				'full': '100%',

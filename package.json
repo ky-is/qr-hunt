@@ -9,6 +9,7 @@
 	},
 	"dependencies": {
 		"@fullhuman/postcss-purgecss": "^1.2.0",
+		"@ky-is/tailwind-color-palette": "^1.0.0",
 		"@ky-is/tailwindcss-plugin-width-height": "^1.0.0",
 		"contentful": "^7.9.1",
 		"core-js": "^2",

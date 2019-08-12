@@ -1,5 +1,6 @@
 dependencies:
   '@fullhuman/postcss-purgecss': 1.2.0
+  '@ky-is/tailwind-color-palette': 1.0.0
   '@ky-is/tailwindcss-plugin-width-height': 1.0.0
   contentful: 7.9.1
   core-js: 2.6.9
@@ -825,6 +826,13 @@ packages:
       eslint: '>= 4'
     resolution:
       integrity: sha512-kBJ5H7VOPUtZx4cM+G6WIs5dupYbJ+x2Lefz/p7SmOTYfJf0jMJkJG2f3TIHDxi10Tex6TDBvF/+doQDHrU/cw==
+  /@ky-is/tailwind-color-palette/1.0.0:
+    dependencies:
+      '@types/chroma-js': 1.4.1
+      chroma-js: 2.0.4
+    dev: false
+    resolution:
+      integrity: sha512-bAYtzSKaSh9XaoDUVhGTm++7HXkq3l5+mhZCvsrFqQVeUAnV017W6659ROmMoQoTQNChiGN8E8kswxoUj26eYw==
   /@ky-is/tailwindcss-plugin-width-height/1.0.0:
     dev: false
     resolution:
@@ -863,6 +871,10 @@ packages:
       webpack: ^2.0.0 || ^3.0.0 || ^4.0.0
     resolution:
       integrity: sha512-cWKrGaFX+rfbMrAxVv56DzhPNqOJPZuNIS2HGMELtgGzb+vsMzyig9mml5gZ/hr2BGtSLV+dP2LUEuAL8aG2mQ==
+  /@types/chroma-js/1.4.1:
+    dev: false
+    resolution:
+      integrity: sha512-i9hUiO3bwgmzZUDwBuR65WqsBQ/nwN+H2fKX0bykXCdd8cFQEuIj8vI7FXjyb2f5z5h+pv76I/uakikKSgaqTA==
   /@types/eslint-visitor-keys/1.0.0:
     dev: true
     resolution:
@@ -2215,6 +2227,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-GkfeAQh+QNy3wquu9oIZr6SS5x7wGdSgNQvD10X3r+AZr1Oys22HW8kAmDMvNg2+Dm0TeGaEuO8gFwdBXxwO8A==
+  /chroma-js/2.0.4:
+    dev: false
+    resolution:
+      integrity: sha512-gk71qOrSdBTLbsd0DIUO3QjZL8tTvMwpG1EoXYScy7rI4rcO4EyYH6zGuvCgUDumKumqg0pt6Ua+vWnMJsTYhw==
   /chrome-trace-event/1.0.2:
     dependencies:
       tslib: 1.10.0
@@ -9188,6 +9204,7 @@ packages:
 specifiers:
   '@fullhuman/postcss-purgecss': ^1.2.0
   '@ky-is/eslint-config': ^1.7.0
+  '@ky-is/tailwind-color-palette': ^1.0.0
   '@ky-is/tailwindcss-plugin-width-height': ^1.0.0
   '@ky-is/vue-cli-plugin-tabs': ^1.1.0
   '@ky-is/vue-cli-plugin-tailwind': ^2.0.0
