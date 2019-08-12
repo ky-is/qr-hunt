@@ -19,7 +19,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-import { QRItem } from '@/scripts/contentful'
+import { QRSpot } from '@/scripts/contentful'
 import store from '@/scripts/store'
 
 export default Vue.extend({
@@ -29,7 +29,7 @@ export default Vue.extend({
 			required: true,
 		},
 		fields: {
-			type: Object as () => QRItem,
+			type: Object as () => QRSpot,
 			required: true,
 		},
 	},

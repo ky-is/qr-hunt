@@ -1,6 +1,6 @@
 import { createClient, Asset, EntryFields } from 'contentful'
 
-export interface QRItem {
+export interface QRSpot {
 	name: EntryFields.Text
 	URL: EntryFields.Text
 	image: EntryFields.Link<Asset>

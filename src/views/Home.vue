@@ -18,7 +18,7 @@
 import contentful from 'contentful'
 import Vue from 'vue'
 
-import api, { QRItem } from '@/scripts/contentful'
+import api, { QRSpot } from '@/scripts/contentful'
 import store from '@/scripts/store'
 
 import Entry from '@/components/Entry.vue'
@@ -30,7 +30,7 @@ export default Vue.extend({
 
 	data () {
 		return {
-			qrEntries: [] as contentful.Entry<QRItem>[],
+			qrEntries: [] as contentful.Entry<QRSpot>[],
 		}
 	},
 
@@ -49,7 +49,9 @@ export default Vue.extend({
 	},
 
 	async created () {
-		const { items } = await api.getEntries<QRItem>()
+		const { items } = await api.getEntries<QRSpot>({
+			content_type: 'qr_spot',
+		})
 		this.qrEntries = items
 	},
 
