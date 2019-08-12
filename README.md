@@ -38,7 +38,10 @@ These are used to customize the branding of your site.
 
 ## Develop
 
-Rename `.env` to `.env.local` so that your API keys are not commited into your Git repository. Set `VUE_APP_CONTENTFUL_SPACE_ID` and `VUE_APP_CONTENTFUL_ACCESS_TOKEN` to your API key's "Space ID" and "Content Delivery API - access token" respectively.
+Rename `.env` to `.env.local` so that your API keys are not commited into your Git repository:
+- `VUE_APP_CONTENTFUL_SPACE_ID`: Your API key's "Space ID"
+- `VUE_APP_CONTENTFUL_ACCESS_TOKEN`: "Content Delivery API - access token"
+- `VUE_APP_BRAND_COLOR`: CSS color value for your brand color, enclosed in double quotes
 
 ## Deploy
 
@@ -46,4 +49,4 @@ Deploy as a static site. Refer to [https://cli.vuejs.org/guide/deployment.html#p
 
 ### Env variables
 
-Be sure to set your environment variables again in your deployment build environment settings.
+Be sure to set your environment variables again (see `Develop` above) in your deployment build environment settings.
