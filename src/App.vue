@@ -4,7 +4,7 @@
 		<nav class="content  h-12">
 			<router-link to="/" class="flex items-center">
 				<img :alt="title" :src="logoURL" class="inline w-12">
-				<h1 class="pl-1 font-bold text-xl">{{ title }}</h1>
+				<h1 class="pl-1 font-bold text-xl text-brand-500">{{ title }}</h1>
 			</router-link>
 		</nav>
 	</header>
@@ -43,7 +43,6 @@ export default Vue.extend({
 			const { fields: { title, logo } } = metadata
 			const logoURL = (logo.fields as any).file.url //TODO not contentful.Asset
 			store.setTitle(title)
-			this.title = title
 			this.logoURL = logoURL
 			document.title = title
 
@@ -66,7 +65,7 @@ export default Vue.extend({
 }
 
 nav a {
-	@apply text-purple-900;
+	@apply text-brand-900;
 	&.router-link-exact-active {
 		@apply text-gray-900;
 	}
