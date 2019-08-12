@@ -2,7 +2,7 @@
 
 ## Getting started
 
-Clone this repository, rename "QR Hunt", and change `public/favicon.ico` and `src/assets/images/logo.png` to your brand. Then run these commands to hot-reload your site:
+Clone this repository, then run these commands to hot-reload your site:
 
 ```console
 npm install
@@ -15,11 +15,11 @@ Each location for your Hunt is a content entry served from Contentful's API.
 
 ### Setup
 
-1. Create an account on [https://www.contentful.com]().
-2. Follow their steps to create a space for your project.
-3. Add a "Content model" named whatever you like.
-4. Add 3 fields called: `Name` (Text), `URL` (Text), and `Image` (Media).
-5. Add an API key, and see the `Development` or `Deploy` settings below for how to use it.
+1. Create an account on [https://www.contentful.com]()
+2. Follow their steps to create a "Space" for your project
+3. Add a "Content model" with an "API Identifier" of `qr_spot`
+4. Add 4 fields: `Name` (Text), `URL` (Text), `Image` (Media), `Hint` (Text)
+5. Add an API key, and see the `Development` or `Deploy` settings below for how to use it
 
 ### Generate QR Codes
 
@@ -29,9 +29,16 @@ On the page for the Content entry you want, click "Info" in the upper right abov
 
 `https://{YOUR_SITE_URL}/QR/{ENTRY_ID}`
 
+### Metadata
+
+1. Add a "Content model" with an "API Identifier" of `metadata`
+2. Add 2 fields: `Title` (Text), `Logo` (Media)
+
+These are used to customize the branding of your site.
+
 ## Develop
 
-Rename `.env` to `.env.local` so that your API key is not commited into your Git repository. Set `VUE_APP_CONTENTFUL_SPACE_ID` and `VUE_APP_CONTENTFUL_ACCESS_TOKEN` to your API key's "Space ID" and "Content Delivery API - access token" respectively.
+Rename `.env` to `.env.local` so that your API keys are not commited into your Git repository. Set `VUE_APP_CONTENTFUL_SPACE_ID` and `VUE_APP_CONTENTFUL_ACCESS_TOKEN` to your API key's "Space ID" and "Content Delivery API - access token" respectively.
 
 ## Deploy
 
