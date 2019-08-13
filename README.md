@@ -17,8 +17,8 @@ Each location for your Hunt is a content entry served from Contentful's API.
 
 1. Create an account on [https://www.contentful.com]()
 2. Follow their steps to create a "Space" for your project
-3. Add a "Content model" with an "API Identifier" of `qr_spot`
-4. Add 4 fields: `Name` (Text), `URL` (Text), `Image` (Media), `Hint` (Text)
+3. Add a "Content model" called "QR Spot"
+4. Add 5 fields: `Name` (Text, Entry title), `Hint` (Text), `URL` (Text), `Image` (Media), `Location` (Location)
 5. Add an API key, and see the `Development` or `Deploy` settings below for how to use it
 
 ### Generate QR Codes
@@ -32,9 +32,10 @@ On the page for the Content entry you want, click "Info" in the upper right abov
 ### Metadata
 
 1. Add a "Content model" with an "API Identifier" of `metadata`
-2. Add 2 fields: `Title` (Text), `Logo` (Media)
+2. Add 2 fields: `Title` (Text, Entry title), `Logo` (Media)
+3. (Optional) Add 4 fields: `Tutorial Title` (Text), `Tutorial Description` (Long text), `Signup Title` (Text), `Signup Description` (Long text)
 
-These are used to customize the branding of your site.
+These are used to customize the branding and marketing copy of your site.
 
 ## Develop
 
@@ -42,6 +43,11 @@ Rename `.env` to `.env.local` so that your API keys are not commited into your G
 - `VUE_APP_CONTENTFUL_SPACE_ID`: Your API key's "Space ID"
 - `VUE_APP_CONTENTFUL_ACCESS_TOKEN`: "Content Delivery API - access token"
 - `VUE_APP_BRAND_COLOR`: CSS color value for your brand color, enclosed in double quotes
+
+## MailChimp
+
+Optionally, collect email addresses from your users. "Audience" > (choose/create your list) > "Signup Forms" > "Embedded Forms" > From the code block, find the url inside: `<form action="VUE_APP_MAILCHIMP_LIST_URL"`:
+- `VUE_APP_MAILCHIMP_LIST_URL`: The value you copied above
 
 ## Deploy
 
