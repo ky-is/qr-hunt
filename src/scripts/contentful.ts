@@ -11,8 +11,10 @@ export interface Metadata {
 
 export interface QRSpot {
 	name: EntryFields.Text
+	hint?: EntryFields.Text
 	URL: EntryFields.Text
 	image: EntryFields.Link<Asset>
+	location?: EntryFields.Location
 }
 
 export default createClient({

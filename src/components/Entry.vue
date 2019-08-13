@@ -10,7 +10,7 @@
 		</template>
 		<template v-else>
 			<div class="hidden sm:block text-5xl text-gray-400">?</div>
-			<div class="text-white font-medium text-xs sm:text-base">Find the QR code near this photo. Scan it in the Camera app to unlock.</div>
+			<div class="text-white font-medium text-xs sm:text-base">{{ hint }}</div>
 		</template>
 	</div>
 </div>
@@ -37,6 +37,10 @@ export default Vue.extend({
 	computed: {
 		isUnlocked (): boolean {
 			return store.isUnlocked(this.id)
+		},
+
+		hint (): string {
+			return this.fields.hint || `Find the QR code near this photo. Scan it in the Camera app to unlock.`
 		},
 	},
 })
