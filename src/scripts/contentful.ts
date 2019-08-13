@@ -3,6 +3,10 @@ import { createClient, Asset, EntryFields } from 'contentful'
 export interface Metadata {
 	title: EntryFields.Text
 	logo: EntryFields.Link<Asset>
+	tutorialTitle: EntryFields.Text,
+	tutorialDescription: EntryFields.Text,
+	signupTitle: EntryFields.Text,
+	signupDescription: EntryFields.Text,
 }
 
 export interface QRSpot {

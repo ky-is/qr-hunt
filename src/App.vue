@@ -31,7 +31,7 @@ export default Vue.extend({
 
 	computed: {
 		title () {
-			return store.state.title
+			return store.state.metadata.title
 		},
 	},
 
@@ -40,9 +40,10 @@ export default Vue.extend({
 			content_type: 'metadata',
 		})
 		if (metadata) {
-			const { fields: { title, logo } } = metadata
+			const { fields } = metadata
+			const { title, logo } = fields
 			const logoURL = (logo.fields as any).file.url //TODO not contentful.Asset
-			store.setTitle(title)
+			store.setMetadata(fields)
 			this.logoURL = logoURL
 			document.title = title
 

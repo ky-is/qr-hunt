@@ -1,10 +1,17 @@
+import { Metadata } from '@/scripts/contentful'
 import storage from '@/scripts/storage'
 
 const KEY_UNLOCKED = 'UNLOCKED'
 const KEY_TUTORIAL = 'TUTORIAL'
 
 const state = {
-	title: 'QR Hunt',
+	metadata: {
+		title: 'QR Hunt',
+		tutorialTitle: 'QR Hunt',
+		tutorialDescription: 'QR Hunt',
+		signupTitle: 'QR Hunt',
+		signupDescription: 'QR Hunt',
+	},
 	tutorial: storage.getInt(KEY_TUTORIAL) || 0,
 	unlocked: storage.getArray(KEY_UNLOCKED),
 }
@@ -12,8 +19,12 @@ const state = {
 export default {
 	state,
 
-	setTitle (title: string) {
-		state.title = title
+	setMetadata ({ title, tutorialTitle, tutorialDescription, signupTitle, signupDescription }: Metadata) {
+		state.metadata.title = title
+		state.metadata.tutorialTitle = tutorialTitle
+		state.metadata.tutorialDescription = tutorialDescription
+		state.metadata.signupTitle = signupTitle
+		state.metadata.signupDescription = signupDescription
 	},
 
 	isUnlocked (id: string) {
