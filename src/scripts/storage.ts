@@ -5,8 +5,8 @@ let storage: Storage
 		window.localStorage.setItem(sampleDate, sampleDate)
 		window.localStorage.removeItem(sampleDate)
 		storage = window.localStorage
-	} catch (e) {
-		console.error(e)
+	} catch (error) {
+		console.error(error)
 	}
 }
 

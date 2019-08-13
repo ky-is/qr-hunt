@@ -46,7 +46,7 @@ Rename `.env` to `.env.local` so that your API keys are not commited into your G
 
 ## MailChimp
 
-Optionally, collect email addresses from your users. "Audience" > (choose/create your list) > "Signup Forms" > "Embedded Forms" > From the code block, find the url inside: `<form action="VUE_APP_MAILCHIMP_LIST_URL"`:
+Optionally, collect email addresses from your users. https://admin.mailchimp.com/lists > (choose/create your list) > "Signup Forms" > "Embedded Forms" > From the code block, find the url inside: `<form action="VUE_APP_MAILCHIMP_LIST_URL"`:
 - `VUE_APP_MAILCHIMP_LIST_URL`: The value you copied above
 
 ## Deploy
