@@ -4,6 +4,7 @@ import storage from '@/scripts/storage'
 const KEY_UNLOCKED = 'UNLOCKED'
 const KEY_TUTORIAL = 'TUTORIAL'
 const KEY_EMAIL = 'EMAIL'
+const KEY_NAME = 'NAME'
 
 const state = {
 	metadata: {
@@ -16,6 +17,7 @@ const state = {
 	tutorial: storage.getInt(KEY_TUTORIAL) || 0,
 	unlocked: storage.getArray(KEY_UNLOCKED),
 	email: storage.get(KEY_EMAIL),
+	name: storage.get(KEY_NAME),
 }
 
 export default {
@@ -38,13 +40,19 @@ export default {
 		storage.setArray(KEY_UNLOCKED, state.unlocked)
 	},
 
+	setTutorial (level: number) {
+		state.tutorial = level
+		storage.set(KEY_TUTORIAL, state.tutorial)
+	},
 	advanceTutorial () {
 		state.tutorial += 1
 		storage.set(KEY_TUTORIAL, state.tutorial)
 	},
 
-	setEmail (email: string) {
+	setNameAndEmail (name?: string, email?: string) {
+		state.name = name
 		state.email = email
 		storage.set(KEY_EMAIL, state.email)
+		storage.set(KEY_NAME, state.name)
 	},
 }

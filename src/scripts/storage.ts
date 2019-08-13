@@ -11,24 +11,24 @@ let storage: Storage
 }
 
 export default {
-	get (key: string, defaultValue: string | null = null) {
+	get (key: string, defaultValue: string | undefined = undefined) {
 		if (storage) {
 			const value = storage.getItem(key)
 			if (value !== undefined && value !== 'null') {
-				return value
+				return value || undefined
 			}
 		}
 		return defaultValue
 	},
 
-	getBool (key: string, defaultValue: boolean | null = null) {
+	getBool (key: string, defaultValue: boolean | undefined = undefined) {
 		const raw = this.get(key)
-		return raw !== null ? raw === 'true' : defaultValue
+		return raw !== undefined ? raw === 'true' : defaultValue
 	},
 
-	getInt (key: string, defaultValue: number | null = null) {
+	getInt (key: string, defaultValue: number | undefined = undefined) {
 		const raw = this.get(key)
-		return raw !== null ? parseInt(raw, 10) : defaultValue
+		return raw !== undefined ? parseInt(raw, 10) : defaultValue
 	},
 
 	set (key: string, value: any) {
@@ -40,7 +40,7 @@ export default {
 	},
 
 	getArray (key: string) {
-		const raw = this.get(key, null)
+		const raw = this.get(key, undefined)
 		if (raw) {
 			return raw.split(',')
 		}
@@ -49,9 +49,9 @@ export default {
 	setArray (key: string, value: Array<any>) {
 		return this.set(key, value.join(','))
 	},
-	
+
 	getJSON (key: string) {
-		const raw = this.get(key, null)
+		const raw = this.get(key)
 		if (raw) {
 			try {
 				return JSON.parse(raw)

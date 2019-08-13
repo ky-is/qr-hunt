@@ -1,11 +1,12 @@
 <template>
 <div id="app">
-	<header>
-		<nav class="content  h-12">
+	<header class="content  h-12">
+		<nav class="flex justify-between ">
 			<router-link to="/" class="flex items-center">
-				<img :alt="title" :src="logoURL" class="inline w-12">
+				<img :alt="title" :src="logoURL" class="inline w-12 p-1">
 				<h1 class="pl-1 font-bold text-xl text-brand-500">{{ title }}</h1>
 			</router-link>
+			<a v-if="email" class="px-2 cursor-pointer  flex items-center" @click="onEmail">{{ email }}</a>
 		</nav>
 	</header>
 	<main>
@@ -30,6 +31,10 @@ export default Vue.extend({
 	},
 
 	computed: {
+		email () {
+			return store.state.email
+		},
+
 		title () {
 			return store.state.metadata.title
 		},
@@ -54,6 +59,12 @@ export default Vue.extend({
 		} else {
 			console.error('No custom site metadata found. Please add a `metadata` entry on Contentful.')
 		}
+	},
+
+	methods: {
+		onEmail () {
+			store.setTutorial(1)
+		},
 	},
 })
 </script>

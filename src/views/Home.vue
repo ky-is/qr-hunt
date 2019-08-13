@@ -50,9 +50,8 @@ export default Vue.extend({
 	data () {
 		return {
 			emailCollectionURL: process.env.VUE_APP_MAILCHIMP_LIST_URL,
-			enteredEmail: '',
-			// enteredEmail: 'a@b.cd', //SAMPLE
-			enteredName: '',
+			enteredEmail: store.state.email,
+			enteredName: store.state.name,
 			qrEntries: [] as contentful.Entry<QRSpot>[],
 		}
 	},
@@ -65,7 +64,7 @@ export default Vue.extend({
 			return store.state.metadata.tutorialDescription || `Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete them all to win a prize!`
 		},
 		signupTitle () {
-			return store.state.metadata.signupTitle || `Sign up for prizes!`
+			return this.email ? `Update your email address` : store.state.metadata.signupTitle || `Sign up for prizes!`
 		},
 		signupDescription () {
 			return store.state.metadata.signupDescription || `Enter your email to recieve a special discount. This will also be used to deliver prizes for completing the hunt.`
@@ -73,6 +72,9 @@ export default Vue.extend({
 
 		email () {
 			return store.state.email
+		},
+		name () {
+			return store.state.name
 		},
 
 		tutorialLevel () {
@@ -118,8 +120,10 @@ export default Vue.extend({
 		},
 
 		onEmail () {
-			store.setEmail(this.enteredEmail)
-			store.advanceTutorial()
+			if (this.enteredEmail) {
+				store.setNameAndEmail(this.enteredName, this.enteredEmail)
+				store.advanceTutorial()
+			}
 		},
 	},
 })
@@ -138,6 +142,6 @@ export default Vue.extend({
 }
 
 .button-advance {
-	@apply block h-8 mx-auto px-4 bg-brand-500 rounded-full font-bold text-brand-100;
+	@apply block h-10 mx-auto px-6 bg-brand-500 rounded-full font-bold text-brand-100;
 }
 </style>
