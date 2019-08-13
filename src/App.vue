@@ -92,4 +92,21 @@ nav a {
 .inset {
 	@apply mx-4;
 }
+
+input {
+	box-sizing: border-box;
+}
+
+.button {
+	@apply inline-block h-10 mx-auto px-6 rounded-full font-bold;
+	& + .button {
+		@apply ml-1;
+	}
+	&.primary {
+		@apply  bg-brand-500 text-brand-100;
+	}
+	&.secondary {
+		@apply bg-brand-100 text-brand-500;
+	}
+}
 </style>

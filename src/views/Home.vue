@@ -1,12 +1,12 @@
 <template>
 <div>
-	<Component :is="advancesTutorial ? 'button' : 'div'" v-if="showTutorial" class="inset  mt-2 p-2 border border-brand-100 rounded-full text-center" @click="onDismiss">
+	<Component :is="advancesTutorial ? 'button' : 'div'" v-if="showTutorial" class="inset  mt-2 p-2 border border-brand-100 rounded text-center" @click="onDismiss">
 		<template v-if="tutorialLevel === 0">
 			<h2 class="text-lg font-medium">{{ tutorialTitle }}</h2>
 			<p class="px-4 my-2">{{ tutorialDescription }}</p>
-			<button class="button-advance">Got it!</button>
+			<button class="button primary">Got it!</button>
 		</template>
-		<form v-else-if="tutorialLevel === 1" :action="emailCollectionURL" method="post" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate @submit="onEmail">
+		<form v-else-if="tutorialLevel === 1" :action="emailCollectionURL" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate @submit="onEmail">
 			<h2 class="text-lg font-medium">{{ signupTitle }}</h2>
 			<p class="px-4 my-2">{{ signupDescription }}</p>
 			<input v-model="enteredEmail" type="email" placeholder="example@email.com" name="EMAIL" class="email-form-input">
@@ -16,12 +16,15 @@
 				<div class="response" style="display:none" />
 			</div>
 			<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_a5c3d5b0181ed14b49bcb74cf_8c675d6b14" tabindex="-1" value=""></div>
-			<div class="clear"><input id="mc-embedded-subscribe" type="submit" value="Subscribe" name="subscribe" class="button-advance"></div>
+			<div class="clear">
+				<input id="mc-embedded-subscribe" type="submit" value="Subscribe" name="subscribe" class="button primary">
+				<input type="button" value="Cancel" class="button secondary" @click="onEmailCancel">
+			</div>
 		</form>
 		<template v-else>
 			<h2 class="text-lg font-medium">Welcome {{ enteredName || email }}!</h2>
 			<p class="px-4 my-2">Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete all {{ totalCount }} to win a prize!</p>
-			<button class="button-advance">Dismiss</button>
+			<button class="button primary">Dismiss</button>
 		</template>
 	</Component>
 	<div>
@@ -57,6 +60,37 @@ export default Vue.extend({
 	},
 
 	computed: {
+		email () {
+			return store.state.email
+		},
+		name () {
+			return store.state.name
+		},
+
+		needsEmail (): boolean {
+			return this.unlockCount >= 0 && !this.email
+		},
+
+		tutorialLevel () {
+			return store.state.tutorial
+		},
+		showTutorial (): boolean {
+			if (!this.emailCollectionURL) {
+				return this.tutorialLevel === 0
+			}
+			return this.tutorialLevel <= 1 || (this.tutorialLevel === 2 && !!this.enteredEmail)
+		},
+		advancesTutorial (): boolean {
+			return this.tutorialLevel !== 1
+		},
+
+		unlockCount (): number {
+			return this.qrEntries.filter(({ sys }) => store.isUnlocked(sys.id)).length
+		},
+		totalCount (): number {
+			return this.qrEntries.length
+		},
+
 		tutorialTitle () {
 			return store.state.metadata.tutorialTitle || `Welcome to the hunt!`
 		},
@@ -68,40 +102,6 @@ export default Vue.extend({
 		},
 		signupDescription () {
 			return store.state.metadata.signupDescription || `Enter your email to recieve a special discount. This will also be used to deliver prizes for completing the hunt.`
-		},
-
-		email () {
-			return store.state.email
-		},
-		name () {
-			return store.state.name
-		},
-
-		tutorialLevel () {
-			return store.state.tutorial
-		},
-
-		showTutorial (): boolean {
-			if (!this.emailCollectionURL) {
-				return this.tutorialLevel === 0
-			}
-			return this.tutorialLevel <= 1 || (this.tutorialLevel === 2 && !!this.enteredEmail)
-		},
-
-		advancesTutorial (): boolean {
-			return this.tutorialLevel !== 1
-		},
-
-		needsEmail (): boolean {
-			return this.unlockCount >= 0 && !this.email
-		},
-
-		unlockCount (): number {
-			return this.qrEntries.filter(({ sys }) => store.isUnlocked(sys.id)).length
-		},
-
-		totalCount (): number {
-			return this.qrEntries.length
 		},
 	},
 
@@ -125,6 +125,10 @@ export default Vue.extend({
 				store.advanceTutorial()
 			}
 		},
+
+		onEmailCancel () {
+
+		},
 	},
 })
 </script>
@@ -138,10 +142,6 @@ export default Vue.extend({
 }
 
 .email-form-input {
-	@apply block w-full px-4 m-1 rounded-full bg-gray-100;
-}
-
-.button-advance {
-	@apply block h-10 mx-auto px-6 bg-brand-500 rounded-full font-bold text-brand-100;
+	@apply block w-full h-10 px-4 my-1 rounded text-lg bg-gray-100;
 }
 </style>

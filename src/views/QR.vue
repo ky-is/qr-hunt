@@ -1,6 +1,6 @@
 <template>
 <div>
-	<a :href="image" :download="`${id}.png`" class="inline-block border rounded-lg p-1 text-center">
+	<a :href="image" :download="`${id}.png`" class="inline-block border rounded p-1 text-center">
 		<canvas ref="canvas" />
 		<div>Download</div>
 	</a>

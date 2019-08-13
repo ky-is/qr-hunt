@@ -14,7 +14,7 @@ export default {
 	get (key: string, defaultValue: string | undefined = undefined) {
 		if (storage) {
 			const value = storage.getItem(key)
-			if (value !== undefined && value !== 'null') {
+			if (value !== undefined && value !== 'undefined') {
 				return value || undefined
 			}
 		}
