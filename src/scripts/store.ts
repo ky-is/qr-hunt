@@ -5,6 +5,7 @@ const KEY_UNLOCKED = 'UNLOCKED'
 const KEY_TUTORIAL = 'TUTORIAL'
 const KEY_EMAIL = 'EMAIL'
 const KEY_NAME = 'NAME'
+const KEY_PROMPTED_FOR_EMAIL = 'EMAIL_PROMPT'
 
 const state = {
 	metadata: {
@@ -18,6 +19,7 @@ const state = {
 	unlocked: storage.getArray(KEY_UNLOCKED),
 	email: storage.get(KEY_EMAIL),
 	name: storage.get(KEY_NAME),
+	promptedForEmail: storage.getBool(KEY_PROMPTED_FOR_EMAIL),
 }
 
 export default {
@@ -38,6 +40,14 @@ export default {
 	setUnlocked (id: string) {
 		state.unlocked.push(id)
 		storage.setArray(KEY_UNLOCKED, state.unlocked)
+	},
+
+	togglePromptedForEmailSaving (save: boolean) {
+		const prompting = !state.promptedForEmail
+		state.promptedForEmail = prompting
+		if (save) {
+			storage.set(KEY_PROMPTED_FOR_EMAIL, prompting)
+		}
 	},
 
 	setTutorial (level: number) {

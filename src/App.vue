@@ -6,7 +6,7 @@
 				<img :alt="title" :src="logoURL" class="inline w-12 p-1">
 				<h1 class="pl-1 font-bold text-xl text-brand-500">{{ title }}</h1>
 			</router-link>
-			<a v-if="email" class="px-2 cursor-pointer  flex items-center" @click="onEmail">{{ email }}</a>
+			<a v-if="!email || promptedForEmail" class="px-2 cursor-pointer  flex items-center" @click="onEmail">{{ email && promptedForEmail ? email : 'Sign up' }}</a>
 		</nav>
 	</header>
 	<main>
@@ -33,6 +33,9 @@ export default Vue.extend({
 	computed: {
 		email () {
 			return store.state.email
+		},
+		promptedForEmail () {
+			return store.state.promptedForEmail
 		},
 
 		title () {
@@ -63,7 +66,7 @@ export default Vue.extend({
 
 	methods: {
 		onEmail () {
-			store.setTutorial(1)
+			store.togglePromptedForEmailSaving(!this.email)
 		},
 	},
 })

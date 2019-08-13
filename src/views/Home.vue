@@ -1,16 +1,16 @@
 <template>
 <div>
-	<Component :is="advancesTutorial ? 'button' : 'div'" v-if="showTutorial" class="inset  mt-2 p-2 border border-brand-100 rounded text-center" @click="onDismiss">
+	<Component :is="isCollectingEmail ? 'div' : 'button'" v-if="showTutorial" class="inset  mt-2 p-2 border border-brand-100 rounded text-center" @click="isCollectingEmail ? null : onDismiss()">
 		<template v-if="tutorialLevel === 0">
 			<h2 class="title">{{ tutorialTitle }}</h2>
 			<p>{{ tutorialDescription }}</p>
-			<button class="button primary">Got it!</button>
+			<button class="button primary">Next</button>
 		</template>
-		<form v-else-if="tutorialLevel === 1" :action="emailCollectionURL" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate @submit="onEmail">
+		<form v-else-if="isCollectingEmail" :action="emailCollectionURL" method="post" name="mc-embedded-subscribe-form" target="_blank" @submit="onEmailSubmit">
 			<h2 class="title">{{ signupTitle }}</h2>
 			<p>{{ signupDescription }}</p>
 			<input v-model="enteredEmail" type="email" placeholder="example@email.com" name="EMAIL" class="email-form-input">
-			<input v-model="enteredName" type="text" placeholder="First name" value="" name="FNAME" class="email-form-input">
+			<input v-model="enteredName" type="text" placeholder="Name (optional)" value="" name="FNAME" class="email-form-input">
 			<div class="clear">
 				<div class="response" style="display:none" />
 				<div class="response" style="display:none" />
@@ -18,13 +18,13 @@
 			<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_a5c3d5b0181ed14b49bcb74cf_8c675d6b14" tabindex="-1" value=""></div>
 			<div class="clear">
 				<button id="mc-embedded-subscribe" type="submit" name="subscribe" class="button primary">Subscribe</button>
-				<button type="button" class="button secondary" @click="onEmailCancel">Cancel</button>
+				<button type="button" class="button secondary" @click="onEmailCancel">Skip</button>
 			</div>
 		</form>
 		<template v-else>
-			<h2 class="title">Welcome {{ enteredName || email }}!</h2>
+			<h2 class="title">Welcome<span v-if="displayName"> {{ displayName }}</span>!</h2>
 			<p>Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete all {{ totalCount }} to win a prize!</p>
-			<button class="button primary">Dismiss</button>
+			<button class="button primary">Done</button>
 		</template>
 	</Component>
 	<div>
@@ -60,28 +60,32 @@ export default Vue.extend({
 	},
 
 	computed: {
-		email () {
+		email (): string | undefined {
 			return store.state.email
 		},
 		name () {
 			return store.state.name
 		},
+		promptedForEmail () {
+			return store.state.promptedForEmail
+		},
 
-		needsEmail (): boolean {
-			return this.unlockCount >= 0 && !this.email
+		displayName (): string | undefined {
+			return this.enteredName || this.email
 		},
 
 		tutorialLevel () {
 			return store.state.tutorial
 		},
 		showTutorial (): boolean {
-			if (!this.emailCollectionURL) {
-				return this.tutorialLevel === 0
+			if (!this.promptedForEmail) {
+				return true
 			}
-			return this.tutorialLevel <= 1 || (this.tutorialLevel === 2 && !!this.enteredEmail)
+			return this.tutorialLevel <= 1
 		},
-		advancesTutorial (): boolean {
-			return this.tutorialLevel !== 1
+
+		isCollectingEmail (): boolean {
+			return this.tutorialLevel > 0 && !this.promptedForEmail
 		},
 
 		unlockCount (): number {
@@ -91,16 +95,16 @@ export default Vue.extend({
 			return this.qrEntries.length
 		},
 
-		tutorialTitle () {
+		tutorialTitle (): string {
 			return store.state.metadata.tutorialTitle || `Welcome to the hunt!`
 		},
-		tutorialDescription () {
+		tutorialDescription (): string {
 			return store.state.metadata.tutorialDescription || `Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete them all to win a prize!`
 		},
-		signupTitle () {
+		signupTitle (): string {
 			return this.email ? `Update your email address` : store.state.metadata.signupTitle || `Sign up for prizes!`
 		},
-		signupDescription () {
+		signupDescription (): string {
 			return store.state.metadata.signupDescription || `Enter your email to recieve a special discount. This will also be used to deliver prizes for completing the hunt.`
 		},
 	},
@@ -114,20 +118,18 @@ export default Vue.extend({
 
 	methods: {
 		onDismiss () {
-			if (this.advancesTutorial) {
-				store.advanceTutorial()
-			}
+			store.advanceTutorial()
 		},
 
-		onEmail () {
+		onEmailSubmit () {
 			if (this.enteredEmail) {
 				store.setNameAndEmail(this.enteredName, this.enteredEmail)
-				store.advanceTutorial()
+				store.togglePromptedForEmailSaving(true)
 			}
 		},
 
 		onEmailCancel () {
-
+			store.togglePromptedForEmailSaving(true)
 		},
 	},
 })
