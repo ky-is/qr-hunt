@@ -97,8 +97,18 @@ input {
 	box-sizing: border-box;
 }
 
+p {
+	@apply px-4 my-2 leading-tight;
+}
+
 .button {
 	@apply inline-block h-10 mx-auto px-6 rounded-full font-bold;
+	&:disabled {
+		@apply cursor-not-allowed;
+	}
+	&:not(:disabled) {
+		@apply cursor-pointer;
+	}
 	& + .button {
 		@apply ml-1;
 	}

@@ -2,13 +2,13 @@
 <div>
 	<Component :is="advancesTutorial ? 'button' : 'div'" v-if="showTutorial" class="inset  mt-2 p-2 border border-brand-100 rounded text-center" @click="onDismiss">
 		<template v-if="tutorialLevel === 0">
-			<h2 class="text-lg font-medium">{{ tutorialTitle }}</h2>
-			<p class="px-4 my-2">{{ tutorialDescription }}</p>
+			<h2 class="title">{{ tutorialTitle }}</h2>
+			<p>{{ tutorialDescription }}</p>
 			<button class="button primary">Got it!</button>
 		</template>
 		<form v-else-if="tutorialLevel === 1" :action="emailCollectionURL" method="post" name="mc-embedded-subscribe-form" target="_blank" novalidate @submit="onEmail">
-			<h2 class="text-lg font-medium">{{ signupTitle }}</h2>
-			<p class="px-4 my-2">{{ signupDescription }}</p>
+			<h2 class="title">{{ signupTitle }}</h2>
+			<p>{{ signupDescription }}</p>
 			<input v-model="enteredEmail" type="email" placeholder="example@email.com" name="EMAIL" class="email-form-input">
 			<input v-model="enteredName" type="text" placeholder="First name" value="" name="FNAME" class="email-form-input">
 			<div class="clear">
@@ -17,13 +17,13 @@
 			</div>
 			<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_a5c3d5b0181ed14b49bcb74cf_8c675d6b14" tabindex="-1" value=""></div>
 			<div class="clear">
-				<input id="mc-embedded-subscribe" type="submit" value="Subscribe" name="subscribe" class="button primary">
-				<input type="button" value="Cancel" class="button secondary" @click="onEmailCancel">
+				<button id="mc-embedded-subscribe" type="submit" name="subscribe" class="button primary">Subscribe</button>
+				<button type="button" class="button secondary" @click="onEmailCancel">Cancel</button>
 			</div>
 		</form>
 		<template v-else>
-			<h2 class="text-lg font-medium">Welcome {{ enteredName || email }}!</h2>
-			<p class="px-4 my-2">Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete all {{ totalCount }} to win a prize!</p>
+			<h2 class="title">Welcome {{ enteredName || email }}!</h2>
+			<p>Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete all {{ totalCount }} to win a prize!</p>
 			<button class="button primary">Dismiss</button>
 		</template>
 	</Component>
@@ -134,6 +134,10 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss" scoped>
+.title {
+	@apply -mb-1 text-lg font-medium;
+}
+
 .entry {
 	width: 33.333vmin;
 	height: 33.333vmin;
@@ -142,6 +146,6 @@ export default Vue.extend({
 }
 
 .email-form-input {
-	@apply block w-full h-10 px-4 my-1 rounded text-lg bg-gray-100;
+	@apply block w-full h-10 px-3 my-1 rounded text-lg bg-gray-100;
 }
 </style>
