@@ -14,7 +14,7 @@
 			<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_a5c3d5b0181ed14b49bcb74cf_8c675d6b14" tabindex="-1" value=""></div>
 			<div class="clear">
 				<button type="submit" class="button primary">Subscribe</button>
-				<button type="button" class="button secondary" @click="onEmailCancel">Skip</button>
+				<button type="button" class="button secondary" @click.stop="onEmailCancel">Skip</button>
 			</div>
 		</form>
 		<template v-else>
@@ -71,13 +71,10 @@ export default Vue.extend({
 		},
 
 		tutorialLevel () {
-			return store.state.tutorial
+			return store.state.tutorialLevel
 		},
 		showTutorial (): boolean {
-			if (!this.promptedForEmail) {
-				return true
-			}
-			return this.tutorialLevel <= 1
+			return this.tutorialLevel <= 1 || !this.promptedForEmail
 		},
 
 		isCollectingEmail (): boolean {
@@ -114,6 +111,7 @@ export default Vue.extend({
 
 	methods: {
 		onDismiss () {
+			console.log(this.tutorialLevel)
 			store.advanceTutorial()
 		},
 

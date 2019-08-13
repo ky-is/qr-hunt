@@ -15,7 +15,7 @@ const state = {
 		signupTitle: 'QR Hunt',
 		signupDescription: 'QR Hunt',
 	},
-	tutorial: storage.getInt(KEY_TUTORIAL) || 0,
+	tutorialLevel: storage.getInt(KEY_TUTORIAL) || 0,
 	unlocked: storage.getArray(KEY_UNLOCKED),
 	email: storage.get(KEY_EMAIL),
 	name: storage.get(KEY_NAME),
@@ -51,12 +51,12 @@ export default {
 	},
 
 	setTutorial (level: number) {
-		state.tutorial = level
-		storage.set(KEY_TUTORIAL, state.tutorial)
+		state.tutorialLevel = level
+		storage.set(KEY_TUTORIAL, state.tutorialLevel)
 	},
 	advanceTutorial () {
-		state.tutorial += 1
-		storage.set(KEY_TUTORIAL, state.tutorial)
+		state.tutorialLevel += 1
+		storage.set(KEY_TUTORIAL, state.tutorialLevel)
 	},
 
 	setNameAndEmail (name?: string, email?: string) {
