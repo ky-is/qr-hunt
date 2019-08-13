@@ -11,13 +11,9 @@
 			<p>{{ signupDescription }}</p>
 			<input v-model="enteredEmail" type="email" placeholder="example@email.com" name="EMAIL" class="email-form-input">
 			<input v-model="enteredName" type="text" placeholder="Name (optional)" value="" name="FNAME" class="email-form-input">
-			<div class="clear">
-				<div class="response" style="display:none" />
-				<div class="response" style="display:none" />
-			</div>
 			<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_a5c3d5b0181ed14b49bcb74cf_8c675d6b14" tabindex="-1" value=""></div>
 			<div class="clear">
-				<button id="mc-embedded-subscribe" type="submit" name="subscribe" class="button primary">Subscribe</button>
+				<button type="submit" class="button primary">Subscribe</button>
 				<button type="button" class="button secondary" @click="onEmailCancel">Skip</button>
 			</div>
 		</form>
@@ -122,10 +118,12 @@ export default Vue.extend({
 		},
 
 		onEmailSubmit () {
-			if (this.enteredEmail) {
-				store.setNameAndEmail(this.enteredName, this.enteredEmail)
-				store.togglePromptedForEmailSaving(true)
-			}
+			window.setTimeout(() => {
+				if (this.enteredEmail) {
+					store.setNameAndEmail(this.enteredName, this.enteredEmail)
+					store.togglePromptedForEmailSaving(true)
+				}
+			})
 		},
 
 		onEmailCancel () {
