@@ -1,10 +1,29 @@
 <template>
 <div>
-	<button v-if="showTutorial" class="inset  mt-2 p-2 border border-brand-100 rounded-full text-center" @click="onDismiss">
-		<h2 class="text-lg font-medium">Welcome to the hunt!</h2>
-		<p class="px-4 my-2">Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete all {{ totalCount }} to win a prize!</p>
-		<button class="block w-24 h-8 mx-auto bg-brand-100 rounded-full">Dismiss</button>
-	</button>
+	<Component :is="advancesTutorial ? 'button' : 'div'" v-if="showTutorial" class="inset  mt-2 p-2 border border-brand-100 rounded-full text-center" @click="onDismiss">
+		<template v-if="tutorialLevel === 0">
+			<h2 class="text-lg font-medium">{{ tutorialTitle }}</h2>
+			<p class="px-4 my-2">{{ tutorialDescription }}</p>
+			<button class="button-advance">Got it!</button>
+		</template>
+		<form v-else-if="tutorialLevel === 1" :action="emailCollectionURL" method="post" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate @submit="onEmail">
+			<h2 class="text-lg font-medium">{{ signupTitle }}</h2>
+			<p class="px-4 my-2">{{ signupDescription }}</p>
+			<input v-model="enteredEmail" type="email" placeholder="example@email.com" name="EMAIL" class="email-form-input">
+			<input v-model="enteredName" type="text" placeholder="First name" value="" name="FNAME" class="email-form-input">
+			<div class="clear">
+				<div class="response" style="display:none" />
+				<div class="response" style="display:none" />
+			</div>
+			<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_a5c3d5b0181ed14b49bcb74cf_8c675d6b14" tabindex="-1" value=""></div>
+			<div class="clear"><input id="mc-embedded-subscribe" type="submit" value="Subscribe" name="subscribe" class="button-advance"></div>
+		</form>
+		<template v-else>
+			<h2 class="text-lg font-medium">Welcome {{ enteredName || email }}!</h2>
+			<p class="px-4 my-2">Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete all {{ totalCount }} to win a prize!</p>
+			<button class="button-advance">Dismiss</button>
+		</template>
+	</Component>
 	<div>
 		<h2 class="inset  my-2">Unlocked <b class="text-brand-500">{{ unlockCount }}</b> of <b class="text-brand-500">{{ totalCount }}</b></h2>
 		<div class="flex flex-wrap justify-around">
@@ -30,13 +49,49 @@ export default Vue.extend({
 
 	data () {
 		return {
+			emailCollectionURL: process.env.VUE_APP_MAILCHIMP_LIST_URL,
+			enteredEmail: '',
+			// enteredEmail: 'a@b.cd', //SAMPLE
+			enteredName: '',
 			qrEntries: [] as contentful.Entry<QRSpot>[],
 		}
 	},
 
 	computed: {
-		showTutorial () {
-			return !store.state.tutorial
+		tutorialTitle () {
+			return store.state.metadata.tutorialTitle || `Welcome to the hunt!`
+		},
+		tutorialDescription () {
+			return store.state.metadata.tutorialDescription || `Somewhere near each photo below, a QR code is posted for you to find. As you scan each one, its photo will be checked off. Complete them all to win a prize!`
+		},
+		signupTitle () {
+			return store.state.metadata.signupTitle || `Sign up for prizes!`
+		},
+		signupDescription () {
+			return store.state.metadata.signupDescription || `Enter your email to recieve a special discount. This will also be used to deliver prizes for completing the hunt.`
+		},
+
+		email () {
+			return store.state.email
+		},
+
+		tutorialLevel () {
+			return store.state.tutorial
+		},
+
+		showTutorial (): boolean {
+			if (!this.emailCollectionURL) {
+				return this.tutorialLevel === 0
+			}
+			return this.tutorialLevel <= 1 || (this.tutorialLevel === 2 && !!this.enteredEmail)
+		},
+
+		advancesTutorial (): boolean {
+			return this.tutorialLevel !== 1
+		},
+
+		needsEmail (): boolean {
+			return this.unlockCount >= 0 && !this.email
 		},
 
 		unlockCount (): number {
@@ -50,13 +105,20 @@ export default Vue.extend({
 
 	async created () {
 		const { items } = await api.getEntries<QRSpot>({
-			content_type: 'qr_spot',
+			content_type: 'qrSpot',
 		})
 		this.qrEntries = items
 	},
 
 	methods: {
 		onDismiss () {
+			if (this.advancesTutorial) {
+				store.advanceTutorial()
+			}
+		},
+
+		onEmail () {
+			store.setEmail(this.enteredEmail)
 			store.advanceTutorial()
 		},
 	},
@@ -69,5 +131,13 @@ export default Vue.extend({
 	height: 33.333vmin;
 	max-width: 256px;
 	max-height: 256px;
+}
+
+.email-form-input {
+	@apply block w-full px-4 m-1 rounded-full bg-gray-100;
+}
+
+.button-advance {
+	@apply block h-8 mx-auto px-4 bg-brand-500 rounded-full font-bold text-brand-100;
 }
 </style>
